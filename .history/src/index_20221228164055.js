@@ -16,6 +16,8 @@ async function test(){
     
     await channel.consume(queue, async (msg)=>{
         colls.deleteMany({});
+        console.log('CONSUME');
+        console.log(msg.content.toString());
         rabbitResult = JSON.parse(msg.content.toString());
         await colls.insertMany(rabbitResult)
         channel.ack(msg); 
